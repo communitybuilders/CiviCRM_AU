@@ -1,9 +1,9 @@
 <?php
 /*
  +--------------------------------------------------------------------+
- | CiviCRM version 4.1                                                |
+ | CiviCRM version 4.2                                                |
  +--------------------------------------------------------------------+
- | Copyright CiviCRM LLC (c) 2004-2011                                |
+ | Copyright CiviCRM LLC (c) 2004-2012                                |
  +--------------------------------------------------------------------+
  | This file is a part of CiviCRM.                                    |
  |                                                                    |
@@ -28,15 +28,12 @@
 /**
  *
  * @package CRM
- * @copyright CiviCRM LLC (c) 2004-2011
+ * @copyright CiviCRM LLC (c) 2004-2012
  * $Id$
  *
  */
 
-require_once 'CRM/Utils/String.php';
-require_once 'CRM/Utils/Type.php';
 
-require_once 'CRM/Activity/Import/Field.php';
 
 abstract class CRM_Activity_Import_Parser {
   CONST MAX_ERRORS = 250, MAX_WARNINGS = 25, VALID = 1, WARNING = 2, ERROR = 4, CONFLICT = 8, STOP = 16, DUPLICATE = 32, MULTIPLE_DUPE = 64, NO_MATCH = 128;
@@ -529,7 +526,6 @@ abstract class CRM_Activity_Import_Parser {
         $this->_fields[$name] = new CRM_Activity_Import_Field($name, $title, $type, $headerPattern, $dataPattern);
       }
       else {
-        require_once 'CRM/Import/Field.php';
         $this->_fields[$name] = new CRM_Import_Field($name, $title, $type, $headerPattern, $dataPattern, CRM_Utils_Array::value('hasLocationType', $tempField[$name]));
       }
     }
@@ -643,13 +639,11 @@ abstract class CRM_Activity_Import_Parser {
   }
 
   function errorFileName($type) {
-    require_once 'CRM/Import/Parser.php';
     $fileName = CRM_Import_Parser::errorFileName($type);
     return $fileName;
   }
 
   function saveFileName($type) {
-    require_once 'CRM/Import/Parser.php';
     $fileName = CRM_Import_Parser::saveFileName($type);
     return $fileName;
   }
